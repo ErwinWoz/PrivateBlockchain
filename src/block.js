@@ -39,11 +39,9 @@ class Block {
         let self = this;
         return new Promise(async(resolve, reject) => {
             // Save in auxiliary variable the current block hash
-            let blockHash = self.hash;
-            self.hash = null;                                         
-            // Recalculate the hash of the Block
-            let calculatedHash = SHA256(JSON.stringify(self)).toString();
-            self.hash = blockHash;
+            let blockHash = self.hash;                                         
+            // Recalculate the hash of the Block using rest spread operator
+            let calculatedHash = SHA256(JSON.stringify({...self, "hash": null})).toString();
             // Comparing if the hashes changed
             if (blockHash !== calculatedHash) {
             // Returning the Block is not valid
